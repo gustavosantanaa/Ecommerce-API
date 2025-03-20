@@ -33,7 +33,7 @@ export class UsersController{
     static async save(req: Request, res: Response){
         let user = req.body;
         const userSalvo = await getFirestore().collection("users").add(user);
-        res.send({
+        res.status(201).send({
             message: `Usuário ${userSalvo.id} criado com sucesso!`
         });
     }
@@ -58,8 +58,6 @@ export class UsersController{
         getFirestore().collection("users").doc(userId).delete();
         await getFirestore().collection("users").doc(userId).delete();
 
-        res.send({
-            message: "Usuário excluído com sucesso!"
-        })
+        res.status(204).end();
         }
 }
